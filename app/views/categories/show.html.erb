@@ -1,0 +1,16 @@
+<div>
+<h1 class="font-italic text-5xl text-red-300 bg-green-300 p-3 rounded-lg">
+  <span class="text-sky-400"><%= @category.title%></span> 
+  Kategorisi</h1>
+  <% @category.posts.each do |post|%>
+    <div class="p-1 bg-red-300 border m-2 rounded">
+    <h1 class="text-center"><%= link_to(post.title,post_path(post),class:"bg-red rounded")%></h1>
+    </div>
+  <%end%>
+  <% if authenticated?%>
+    <div class="flex justify-center">
+      <%= link_to("Yazı ekle",new_post_path,class:"p-3 bg-green-300 rounded mt-10")%>
+    </div>
+  <%end%>
+</div>
+

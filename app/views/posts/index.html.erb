@@ -1,0 +1,11 @@
+<div>
+  <h1 class="font-bold text-4xl text-green-300">Yazılar</h1>
+  <ul>
+    <% @posts.each do%>
+      <%= render "post",post: it%>
+    <%end%>
+  </ul>
+  <br>
+  <%= link_to("Yeni ekle",new_post_path,class:"rounded-full bg-sky-500 p-3 m-11")%>
+
+</div>

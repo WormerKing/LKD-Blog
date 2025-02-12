@@ -1,0 +1,29 @@
+<div>
+<div>
+  <h1 class="mb-10"><span class="text-blue-300 text-lg"><%= @post.title%></span> yazısı hakkında bilgiler</h1>
+  <% hash = {
+    "İsim" => @post.title,
+    "İçerik" => @post.content, 
+    "Durum" => @post.status,
+    "Kategori" => @post.category.title,
+    "Kullanıcı" => @post.user.email_address
+  }%>
+<% hash.each do |i,j|%>
+    <% if i == "Kategori"%>
+      <h1>Kategori : <%= link_to(j,category_path(j),class:"text-red-300")%></h1>
+      <%next%>
+    <%end%>
+    <h1><%= i%> : <%= j%></h1>
+  <%end%>
+
+</div>
+
+<div class="mt-50 text-center">
+  
+  <h1 class="font-bold text-5xl">Yorumlar</h1>
+  <hr class="border">
+  <%= turbo_frame_tag :comments,src: new_post_comment_path(@post),loading: "lazy"%>
+  <div id="<%= dom_id(@post,:comments)%>">
+    <%= render @post.comments%> 
+  </div>
+</div>
