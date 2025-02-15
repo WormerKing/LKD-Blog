@@ -1,6 +1,9 @@
 <%= turbo_stream.append :comments do %>
   <%= render "comment",comment: @comment%>
 <%end%>
+<%= turbo_stream.append :flash_messages do %>
+  <%= render "layouts/flash_messages"%>
+<%end%>
 <%# turbo_stream.replace :comments_form do %>
   <%# turbo_frame_tag :comments_form,
                           src: new_post_comment_path(),

@@ -18,12 +18,15 @@
 
 </div>
 
-<div class="mt-50 text-center">
+<div class="mt-10 text-center" id="<%= dom_id(@post,:comments)%>">
   
   <h1 class="font-bold text-5xl">Yorumlar</h1>
-  <hr class="border">
-  <%= turbo_frame_tag :comments,src: new_post_comment_path(@post),loading: "lazy"%>
-  <div id="<%= dom_id(@post,:comments)%>">
+  <hr class="border my-5">
+  <%if authenticated?%>
+    <%= turbo_frame_tag :comments,src: new_post_comment_path(@post),loading: "lazy"%>
+  <%end%>
+  
+  <div id="<%# dom_id(@post,:comments)%>">
     <%= render @post.comments%> 
   </div>
 </div>

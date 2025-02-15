@@ -14,8 +14,8 @@ class CommentsController < ApplicationController
     
     respond_to do |format|
       if @comment.save
-        flash[:notice] = "Yorum başarıyla eklendi"
-        format.turbo_stream
+        flash.now[:notice] = "Yorum başarıyla eklendi"
+        format.turbo_stream 
       # redirect_to post_path(@post), notice: "Comment created successfully"
       else
         render :new, status: :unprocessable_entity,alert: "Yorum eklenemedi!"
@@ -35,11 +35,14 @@ class CommentsController < ApplicationController
   end
   
   def destroy
-    if @comment.destroy
-      redirect_to post_path(@post), notice: "Yorum başarıyla silindi"
-    else
-      redirect_to post_path(@post), notice: "Yorum silinemedi"
-
+    respond_to do |format|
+      if @comment.destroy
+        format.html {redirect_to post_path(@post), notice: "Yorum başarıyla silindi" }
+        format.turbo_stream {flash.now[:notice] = "Yorum başarıyla silindi"}
+      else
+        format.html {redirect_to post_path(@post), notice: "Yorum silinemedi" }
+        format.turbo_stream {flash.now[:alert] = "Yorum silinemedi"}
+      end
     end
   end
 
